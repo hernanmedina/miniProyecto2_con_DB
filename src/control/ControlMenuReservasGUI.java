@@ -13,6 +13,7 @@ public class ControlMenuReservasGUI implements ActionListener {
     public ControlMenuReservasGUI() {
         if (this.vistaMenu == null) {
             this.vistaMenu = new Menu_ReservaGUI();
+            this.vistaMenu.setLocationRelativeTo(null);
         }
         this.vistaMenu.setVisible(true);
         this.vistaMenu.jBtn_vista_Equipo.addActionListener(this);

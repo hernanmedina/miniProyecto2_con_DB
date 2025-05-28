@@ -4,10 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 public class EquipoDAO {
     
     private ConexionDB conexionDB;
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
 
     public EquipoDAO() {
         this.conexionDB = new ConexionDB();
@@ -95,25 +100,33 @@ public class EquipoDAO {
     }
 
     // Listar todos los equipos
-    public String listarEquipos() {
+    public void listarEquipos(JTable tabla) {
         Connection conexion = conexionDB.obtenerConexion();
-        String sql = "SELECT * FROM equipocomputo";
-        StringBuilder listado = new StringBuilder();
+  
+         String query = "SELECT * FROM equipocomputo";
 
         try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            this.con = this.conexionDB.obtenerConexion();
+            pst = this.con.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
+            modelo.addColumn("Inventario");
+            modelo.addColumn("Marca");
+            modelo.addColumn("año_comp");
 
             while (rs.next()) {
-                listado.append("No Inventario: ").append(rs.getInt("noInventario"))
-                       .append(" | Marca: ").append(rs.getString("marca"))
-                       .append(" | Año de Compra: ").append(rs.getInt("anhoCompra"))
-                       .append("\n");
+                Object[] fila = new Object[3];
+                fila[0] = rs.getInt("noInventario");
+                fila[1] = rs.getString("marca");
+                fila[2] = rs.getString("anhoCompra"); 
+                modelo.addRow(fila);
             }
+            tabla.setModel(modelo);
+            
         } catch (SQLException ex) {
-            System.out.println("Error al listar equipos: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al listar equipos: " + ex.getMessage());
         }
-        return listado.toString();
     }
 }
 

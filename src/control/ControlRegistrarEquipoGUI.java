@@ -20,6 +20,7 @@ public class ControlRegistrarEquipoGUI implements ActionListener {
         this.unEquipoDAO = new EquipoDAO();
         
         this.vistaRegistroEquipo = new RegistroEquipoGUI();
+        this.vistaRegistroEquipo.setLocationRelativeTo(null);
         this.vistaRegistroEquipo.setVisible(true);
         
         this.vistaRegistroEquipo.jbtn_registrarEquipo.addActionListener(this);
@@ -94,8 +95,7 @@ public class ControlRegistrarEquipoGUI implements ActionListener {
 
         // Listar Equipos
         if (e.getSource() == this.vistaRegistroEquipo.jbtn_listar_Equipo) {
-            String listado = unEquipoDAO.listarEquipos();
-            JOptionPane.showMessageDialog(vistaRegistroEquipo, listado);
+            this.unEquipoDAO.listarEquipos(this.vistaRegistroEquipo.jTable_equiposComputo);
         }
 
         // Eliminar Equipo

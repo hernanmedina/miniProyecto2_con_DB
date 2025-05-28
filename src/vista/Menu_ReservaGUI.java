@@ -35,6 +35,7 @@ public class Menu_ReservaGUI extends javax.swing.JFrame {
         jBtn_vista_Profesor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jBtn_vista_Equipo.setText("Registrar Equipo");
 
