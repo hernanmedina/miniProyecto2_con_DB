@@ -27,7 +27,7 @@ public class ControlMenuReservasGUI implements ActionListener {
             new ControlRegistrarEquipoGUI();
             
         } else if (e.getSource() == this.vistaMenu.jBtn_vista_Profesor) {
-           // new ControlRegistroProfesorGUI();
+            new ControlRegistroProfesorGUI();
             
         }else if (e.getSource() == this.vistaMenu.jBtn_vista_Reserva) {
             new ControlRegistrarReservaGUI();
