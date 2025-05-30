@@ -33,7 +33,7 @@ public class EquipoDAO {
             return resultado > 0;
 
         } catch (SQLException ex) {
-            System.out.println("Error al registrar equipo: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al registrar equipo: " + ex.getMessage());
             return false;
         }
     }
@@ -56,7 +56,7 @@ public class EquipoDAO {
                 return equipo;
             }
         } catch (SQLException ex) {
-            System.out.println("Error al buscar equipo: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al buscar equipo: " + ex.getMessage());
         }
         return null;
     }
@@ -76,7 +76,7 @@ public class EquipoDAO {
             return resultado > 0;
 
         } catch (SQLException ex) {
-            System.out.println("Error al modificar equipo: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al modificar equipo: " + ex.getMessage());
             return false;
         }
     }
@@ -94,7 +94,7 @@ public class EquipoDAO {
             return resultado > 0;
 
         } catch (SQLException ex) {
-            System.out.println("Error al eliminar equipo: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar equipo: " + ex.getMessage());
             return false;
         }
     }

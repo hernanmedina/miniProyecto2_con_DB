@@ -40,6 +40,7 @@ public class ControlRegistroProfesorGUI implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Agregar Profesor
         if (e.getSource() == this.vistaRegistroProfesor.jbtn_registrar_Profesor) {
             try {
                 int cedula = Integer.parseInt(vistaRegistroProfesor.jtf_cedula.getText());
@@ -80,7 +81,6 @@ public class ControlRegistroProfesorGUI implements ActionListener {
                 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(vistaRegistroProfesor, "Error: La cedula debe ser un numero.");
-   
             }
         }
         
@@ -90,7 +90,72 @@ public class ControlRegistroProfesorGUI implements ActionListener {
                 this.unProfesorDAO.listarProfesores(this.vistaRegistroProfesor.jTable_profesores);
             
             } catch(Exception ex){
-                JOptionPane.showMessageDialog(vistaRegistroProfesor, "Error. " + ex);
+                JOptionPane.showMessageDialog(vistaRegistroProfesor, "Error NO hay profesores para listar. " + ex);
+            }
+        }
+        
+        //Buscar Profesor
+        if (e.getSource()== this.vistaRegistroProfesor.jBtn_buscar_profesor) {
+            try {
+                int cedula = Integer.parseInt(this.vistaRegistroProfesor.jtf_cedula.getText());
+                unProfesor = unProfesorDAO.buscarProfesor(cedula);
+                
+                //validamos que no sea null
+                if (unProfesor != null) {
+                    vistaRegistroProfesor.jtf_nombre.setText(unProfesor.getNombre());
+                    vistaRegistroProfesor.jtf_apellido.setText(unProfesor.getApellido());
+                    vistaRegistroProfesor.jtf_curso.setText(unProfesor.getCurso());
+                }
+            
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(vistaRegistroProfesor,"Error: La cedula debe ser un numero.");
+            } catch (Exception ex){
+                JOptionPane.showMessageDialog(vistaRegistroProfesor, "Error verifique los datos que ingreso.");
+            }
+        }
+        
+        //Eliminar Profesor
+        if (e.getSource() == this.vistaRegistroProfesor.jbtn_eliminar_profesor) {
+            try {
+                int cedula = Integer.parseInt(vistaRegistroProfesor.jtf_cedula.getText());
+
+                if (unProfesorDAO.EliminarProfesor(cedula)) {
+                    JOptionPane.showMessageDialog(vistaRegistroProfesor, "Equipo eliminado exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(vistaRegistroProfesor, "No se pudo eliminar el equipo.");
+                }
+            } catch (Exception ex){
+                JOptionPane.showMessageDialog(vistaRegistroProfesor, "Error! No sepudo eliminar, verifique los datos que ingreso.");
+            }
+        }
+        
+        //Modificar profesor
+        if (e.getSource() == this.vistaRegistroProfesor.jbtn_modificar_Profesor) {
+            try {
+                int cedula= Integer.parseInt(this.vistaRegistroProfesor.jtf_cedula.getText());
+                String nombre = this.vistaRegistroProfesor.jtf_nombre.getText();
+                String apellido = this.vistaRegistroProfesor.jtf_apellido.getText();
+                String curso = this.vistaRegistroProfesor.jtf_curso.getText();
+                
+                unProfesor.setNombre(nombre);
+                unProfesor.setApellido(apellido);
+                unProfesor.setCurso(curso);
+                
+                    if (unProfesorDAO.modificarProfesor(unProfesor)) {
+                        JOptionPane.showMessageDialog(vistaRegistroProfesor, "Datos modificados correctamente. ");
+                    }else {
+                        //validamos si ya existe un profesor
+                        if (!unProfesorDAO.existeProfesor(cedula)) {
+                            JOptionPane.showMessageDialog(vistaRegistroProfesor, "El profesor NO está registrado.");
+                            return;
+                        }
+                        JOptionPane.showMessageDialog(vistaRegistroProfesor, "Todos los campos son obligatorios. ");
+                    }
+                
+            } catch (NumberFormatException ex){
+                JOptionPane.showMessageDialog(vistaRegistroProfesor,"Error: La cedula debe ser un numero.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(vistaRegistroProfesor, "Error valide los datos, todos los campos son requeridos.");
             }
         }
     }

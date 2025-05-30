@@ -68,7 +68,6 @@ public class ProfesorDAO {
     public void listarProfesores(JTable tabla){
         Connection conexion = conexionDB.obtenerConexion();
         String query = "SELECT * FROM profesor";
-        
         try {
             this.con =this.conexionDB.obtenerConexion();
             pst = this.con.prepareStatement(query);
@@ -91,8 +90,69 @@ public class ProfesorDAO {
             tabla.setModel(modelo);
             
         } catch (SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error al listar los profesores"+ ex);
+            JOptionPane.showMessageDialog(null, "Error al listar los profesores"+ ex.getMessage());
         }
     }
+    
+    //Buscar equipo por numero de inventario
+    public Profesor buscarProfesor(int cedula){
+        Connection conexion = conexionDB.obtenerConexion();
+        String query = "SELECT * FROM profesor WHERE cedula =?";
+        try{
+            pst = conexion.prepareStatement(query);
+            pst.setInt(1, cedula);
+            rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                Profesor profesor = new Profesor();
+                profesor.setCedula(rs.getInt("cedula"));
+                profesor.setNombre(rs.getString("nombre"));
+                profesor.setApellido(rs.getString("apellido"));
+                profesor.setCurso(rs.getString("curso"));
+                return profesor;
+            }
+        
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al buscar profesor. "+ ex.getMessage());
+        }
+        return null;
+    }
+    
+    //Eliminar Profesor
+    public boolean EliminarProfesor(int cedula){
+        Connection conexion = conexionDB.obtenerConexion();
+        String query = "DELETE FROM profesor WHERE cedula = ?";
+    
+        try {
+            pst = conexion.prepareStatement(query);
+            pst.setInt(1, cedula);
+            
+            int resultado = pst.executeUpdate();
+            return resultado > 0;
+            
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al eliminar profesor. "+ ex.getMessage());
+        }
+        return false;
+    }
 
+    //Modificar Profesor
+    public boolean modificarProfesor(Profesor profesor){
+        Connection conexion = conexionDB.obtenerConexion();
+        String query = "UPDATE profesor SET nombre =?, apellido =?, curso =? WHERE cedula =?";
+        try{
+            pst = conexion.prepareStatement(query);
+            pst.setString(1, profesor.getNombre());
+            pst.setString(2, profesor.getApellido());
+            pst.setString(3, profesor.getCurso());
+            pst.setInt(4, profesor.getCedula());
+            
+            int resultado = pst.executeUpdate();
+            return resultado >0;
+        
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Error al modificar profesor verifique la informacion. "+ ex.getMessage());
+        }
+        return false;
+    }
 }
