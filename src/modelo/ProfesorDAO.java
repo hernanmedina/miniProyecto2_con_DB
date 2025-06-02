@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -154,5 +155,30 @@ public class ProfesorDAO {
             JOptionPane.showMessageDialog(null,"Error al modificar profesor verifique la informacion. "+ ex.getMessage());
         }
         return false;
+    }
+    
+    //retorna lista de profesor
+    public ArrayList<Profesor> obtenerProfesor() {
+        ArrayList<Profesor> lista = new ArrayList<>();
+        String query = "SELECT * FROM profesor";
+
+        try {
+            this.con = this.conexionDB.obtenerConexion();
+            pst = con.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Profesor pro = new Profesor();
+                pro.setCedula(rs.getInt("cedula"));
+                pro.setNombre(rs.getString("nombre"));
+                pro.setApellido(rs.getString("apellido"));
+                pro.setCurso(rs.getString("curso"));
+                
+                lista.add(pro);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener profesor: " + ex);
+        }
+        return lista;
     }
 }

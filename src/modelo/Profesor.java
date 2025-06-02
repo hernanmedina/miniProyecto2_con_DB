@@ -14,6 +14,15 @@ public class Profesor {
     private String apellido;
     private String curso;
 
+    Profesor(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String toString() {
+        return "Profesor{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + '}';
+    }
+
     // Constructor vacío
     public Profesor() {}
 

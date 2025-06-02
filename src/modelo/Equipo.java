@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Hernan Medina
@@ -12,6 +14,15 @@ public class Equipo {
     private int noInventario;
     private String marca;
     private int anhoCompra;
+
+    Equipo(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String toString() {
+        return "Equipo{" + "noInventario=" + noInventario + ", marca=" + marca + '}';
+    }
 
     // Constructor vacío
     public Equipo() {}

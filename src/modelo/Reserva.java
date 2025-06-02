@@ -13,17 +13,36 @@ import modelo.Reserva;
 public class Reserva {
     private Profesor profesor;
     private Equipo equipo;
+    private int codigo;
     private Date fechaReserva;
     private Date horaRecogida;
     private Date horaEntrega;
 
     // Constructor
-    public Reserva(Profesor profesor, Equipo equipo, Date fechaReserva, Date horaRecogida, Date horaEntrega) {
+    public Reserva(Profesor profesor, Equipo equipo, int codigo, Date fechaReserva, Date horaRecogida, Date horaEntrega) {
         this.profesor = profesor;
         this.equipo = equipo;
+        this.codigo = codigo;
         this.fechaReserva = fechaReserva;
         this.horaRecogida = horaRecogida;
         this.horaEntrega = horaEntrega;
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva{" + "profesor=" + profesor + ", equipo=" + equipo + ",\n codigo=" + codigo + ", fechaReserva=" + fechaReserva + ", horaRecogida=" + horaRecogida + ", horaEntrega=" + horaEntrega + '}';
+    }
+
+    Reserva() {
+        
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public Profesor getProfesor() {

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -128,5 +129,32 @@ public class EquipoDAO {
             JOptionPane.showMessageDialog(null, "Error al listar equipos: " + ex.getMessage());
         }
     }
+    
+    
+    //Retorna lista de equipos
+    public ArrayList<Equipo> obtenerEquipo(){
+        ArrayList<Equipo> lista = new ArrayList<>();
+        String query = "SELECT * FROM equipocomputo";
+        
+        try {
+            this.con = this.conexionDB.obtenerConexion();
+            pst = con.prepareStatement(query);
+            rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                Equipo eq = new Equipo();
+                eq.setNoInventario(rs.getInt("noInventario"));
+                eq.setMarca(rs.getString("marca"));
+                eq.setAnhoCompra(rs.getInt("anhoCompra"));
+
+                lista.add(eq);
+            }  
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al obtener el equipo de computo. ");
+        }
+        
+        return lista;
+    }
+    
 }
 
