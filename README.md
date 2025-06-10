@@ -1,5 +1,5 @@
 # miniProyecto2_con_DB
-mini proyecto 2 para gestionar las reservas de equipo de cómputo solicitadas por los docentes con conecion a base de datos reservas
+mini proyecto 2 para gestionar las reservas de equipo de cómputo solicitadas por los docentes con coneccion a base de datos reservas
 
 Script SQL
 ========================================================
